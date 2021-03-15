@@ -21,30 +21,33 @@
 #   /organization.yml <-- contains your organization model
 
 Parameters:
-  <<: !Include './_parameters.yml'
+  <<: !Include './_parameters.yaml'
 
 OrganizationUpdate:
   Type: update-organization
   Template: ./organization.yaml
 
-#Baseline:
-#  Type: include
-#  Path: ./200-baseline/organization-tasks.yaml
-#
-#AccountDefaults:
-#  Type: include
-#  Path: ./300-account-defaults/organization-tasks.yaml
-#
-#Access:
-#  Type: include
-#  Path: ./600-access/organization-tasks.yaml
-
-Testing:
+Types:
   Type: include
-  Path: ./900-testing/organization-tasks.yaml
+  DependsOn: [ OrganizationUpdate ]
+  Path: ./005-types/_tasks.yaml
 
-# # this feature will depend on the OrganizationBuild task.
-# MyFeature:
-#   Type: include
-#   DependsOn: OrganizationBuild
-#   Path: ./100-my-feature/organization-tasks.yml
+SeviceControlPolicies:
+  Type: include
+  DependsOn: [ Types ]
+  Path: ./010-scps/_tasks.yaml
+
+Baseline:
+  Type: include
+  DependsOn: [ Types ]
+  Path: ./200-baseline/organization-tasks.yaml
+
+AccountDefaults:
+  Type: include
+  DependsOn: [ Types ]
+  Path: ./300-account-defaults/organization-tasks.yaml
+
+AccountAccess:
+  Type: include
+  DependsOn: [ Types ]
+  Path: ./600-access/organization-tasks.yaml
