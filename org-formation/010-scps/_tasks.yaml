@@ -1,0 +1,57 @@
+Parameters:
+  <<: !Include '../_parameters.yaml'
+
+PreventDisableGuardDuty:
+  Type: update-stacks
+  Template: https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/SCP/prevent-disable-guardduty.yaml
+  StackName: !Sub '${resourcePrefix}-prevent-disable-guardduty'
+  MaxConcurrentStacks: 10
+  DefaultOrganizationBindingRegion: us-east-1
+  DefaultOrganizationBinding:
+    IncludeMasterAccount: true
+  Parameters:
+    targetIds: [ !Ref OrganizationRoot ]
+
+PreventDisableCloudtrail:
+  Type: update-stacks
+  Template: https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/SCP/prevent-disable-cloudtrail.yaml
+  StackName: !Sub '${resourcePrefix}-prevent-disable-cloudtrail'
+  MaxConcurrentStacks: 10
+  DefaultOrganizationBindingRegion: us-east-1
+  DefaultOrganizationBinding:
+    IncludeMasterAccount: true
+  Parameters:
+    targetIds: [ !Ref OrganizationRoot ]
+
+PreventDisableCloudwatchConfigs:
+  Type: update-stacks
+  Template: https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/SCP/prevent-disable-cloudwatch-configs.yaml
+  StackName: !Sub '${resourcePrefix}-prevent-disable-cloudwatch-configs'
+  MaxConcurrentStacks: 10
+  DefaultOrganizationBindingRegion: us-east-1
+  DefaultOrganizationBinding:
+    IncludeMasterAccount: true
+  Parameters:
+    targetIds: [ !Ref DevelopmentOU ]
+
+DenyAllRegionsOutsideUsEast1:
+  Type: update-stacks
+  Template: https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/SCP/deny-all-regions-outside-us-east-1.yaml
+  StackName: !Sub '${resourcePrefix}-deny-all-regions-outside-us-east-1'
+  MaxConcurrentStacks: 10
+  DefaultOrganizationBindingRegion: us-east-1
+  DefaultOrganizationBinding:
+    IncludeMasterAccount: true
+  Parameters:
+    targetIds: [ !Ref DevelopmentOU ]
+
+DenyAllRegionsOutsideUs:
+  Type: update-stacks
+  Template: https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/SCP/deny-all-regions-outside-us.yaml
+  StackName: !Sub '${resourcePrefix}-deny-all-regions-outside-us'
+  MaxConcurrentStacks: 10
+  DefaultOrganizationBindingRegion: us-east-1
+  DefaultOrganizationBinding:
+    IncludeMasterAccount: true
+  Parameters:
+    targetIds: [ !Ref OrganizationRoot ]

@@ -20,21 +20,28 @@
 #   /organization-parameters.yml <-- contains global parameter values that can be included
 #   /organization.yml <-- contains your organization model
 
+Parameters:
+  <<: !Include './_parameters.yml'
+
 OrganizationUpdate:
   Type: update-organization
   Template: ./organization.yaml
 
-Baseline:
-  Type: include
-  Path: ./200-baseline/organization-tasks.yaml
+#Baseline:
+#  Type: include
+#  Path: ./200-baseline/organization-tasks.yaml
+#
+#AccountDefaults:
+#  Type: include
+#  Path: ./300-account-defaults/organization-tasks.yaml
+#
+#Access:
+#  Type: include
+#  Path: ./600-access/organization-tasks.yaml
 
-AccountDefaults:
+Testing:
   Type: include
-  Path: ./300-account-defaults/organization-tasks.yaml
-
-Access:
-  Type: include
-  Path: ./600-access/organization-tasks.yaml
+  Path: ./900-testing/organization-tasks.yaml
 
 # # this feature will depend on the OrganizationBuild task.
 # MyFeature:
