@@ -1,3 +1,8 @@
+Mappings:
+  VcpSettings:
+    VpcSubnetPrefix:
+      320171649655: "10.201.30"
+      346742127440: "10.201.31"
 
 Ec2EbsEncryptionDefaults:
   Type: update-stacks
@@ -80,10 +85,10 @@ ScWorkbenchSwDeVpc:
   Template: https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/VPC/vpc-mini.yaml
   StackName: ScWorkbenchSwDeVpc
   Parameters:
-    VpcSubnetPrefix: "10.201.30"
+    VpcSubnetPrefix: !FindInMap [VcpSettings, VpcSubnetPrefix, !Ref CurrentAccount]
     VpcName: swdevvpc
   MaxConcurrentStacks: 10
   DefaultOrganizationBinding:
     IncludeMasterAccount: false
-    Account: '*'
+    Account: [!Ref MemberXAccount, !Ref MemberYAccount]
     Region: us-east-1
