@@ -1,7 +1,7 @@
 
 AccessTestItOrgMgntAdmin:
   Type: update-stacks
-  Template: https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/IAM/jumpcloud-idp.yaml
+  Template: https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.2.3/templates/IAM/jumpcloud-idp.yaml
   DependsOn: CommunityIamSamlProviderRP
   StackName: access-testitorgmgnt-admin
   MaxConcurrentStacks: 10
