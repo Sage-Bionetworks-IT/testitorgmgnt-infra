@@ -1,3 +1,6 @@
+Parameters:
+  <<: !Include '../_parameters.yaml'
+
 Mappings:
   VcpSettings:
     VpcSubnetPrefix:
@@ -13,7 +16,7 @@ Ec2EbsEncryptionDefaults:
   DefaultOrganizationBinding:
     IncludeMasterAccount: true
     Account: '*'
-    Region: us-east-1
+    Region: !Ref primaryRegion
 
 Ec2NoVpcDefaults:
   Type: update-stacks
@@ -24,7 +27,7 @@ Ec2NoVpcDefaults:
   DefaultOrganizationBinding:
     IncludeMasterAccount: true
     Account: '*'
-    Region: us-east-1
+    Region: !Ref primaryRegion
 
 SceptreCloudformationBucket:
   Type: update-stacks
@@ -34,7 +37,7 @@ SceptreCloudformationBucket:
   DefaultOrganizationBinding:
     IncludeMasterAccount: true
     Account: '*'
-    Region: us-east-1
+    Region: !Ref primaryRegion
 
 SceptreLambdaBucket:
   Type: update-stacks
@@ -44,7 +47,7 @@ SceptreLambdaBucket:
   DefaultOrganizationBinding:
     IncludeMasterAccount: true
     Account: '*'
-    Region: us-east-1
+    Region: !Ref primaryRegion
 
 ItKmsKey:
   Type: update-stacks
@@ -61,7 +64,7 @@ ItKmsKey:
   DefaultOrganizationBinding:
     IncludeMasterAccount: true
     Account: '*'
-    Region: us-east-1
+    Region: !Ref primaryRegion
 
 ScWorkbenchKmsKey:
   Type: update-stacks
@@ -78,7 +81,7 @@ ScWorkbenchKmsKey:
   DefaultOrganizationBinding:
     IncludeMasterAccount: true
     Account: '*'
-    Region: us-east-1
+    Region: !Ref primaryRegion
 
 ScWorkbenchSwDeVpc:
   Type: update-stacks
@@ -91,4 +94,4 @@ ScWorkbenchSwDeVpc:
   DefaultOrganizationBinding:
     IncludeMasterAccount: false
     Account: [!Ref MemberXAccount, !Ref MemberYAccount]
-    Region: us-east-1
+    Region: !Ref primaryRegion

@@ -1,3 +1,5 @@
+Parameters:
+  <<: !Include '../_parameters.yaml'
 
 AccessTestItOrgMgntAdmin:
   Type: update-stacks
@@ -12,4 +14,4 @@ AccessTestItOrgMgntAdmin:
   DefaultOrganizationBinding:
     IncludeMasterAccount: true
     Account: !Ref MasterAccount
-    Region: us-east-1
+    Region: !Ref primaryRegion
