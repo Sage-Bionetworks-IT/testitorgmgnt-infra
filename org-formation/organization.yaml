@@ -1,9 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09-OC'
 Description: org-formation template for organizations management account
 
-Parameters:
-  <<: !Include './_parameters.yaml'
-
 Organization:
   MasterAccount:
     Type: OC::ORG::MasterAccount
@@ -17,7 +14,7 @@ Organization:
         Project: Infrastructure
         budget-alarm-threshold: '100'
         account-owner-email: aws.testitorgmgnt@sagebase.org
-        budget-alarm-threshold-email-recipient: !Ref budgetOwnerEmail
+        budget-alarm-threshold-email-recipient: it@sagebase.org
 
   OrganizationRoot:
     Type: OC::ORG::OrganizationRoot
@@ -49,7 +46,7 @@ Organization:
         Project: Infrastructure
         budget-alarm-threshold: '40'
         account-owner-email: aws.testitorgmgnt.memberx@sagebase.org
-        budget-alarm-threshold-email-recipient: !Ref budgetOwnerEmail
+        budget-alarm-threshold-email-recipient: it@sagebase.org
 
   MemberYAccount:
     Type: OC::ORG::Account
@@ -62,4 +59,4 @@ Organization:
         Project: Infrastructure
         budget-alarm-threshold: '40'
         account-owner-email: aws.testitorgmgnt.membery@sagebase.org
-        budget-alarm-threshold-email-recipient: !Ref budgetOwnerEmail
+        budget-alarm-threshold-email-recipient: it@sagebase.org
