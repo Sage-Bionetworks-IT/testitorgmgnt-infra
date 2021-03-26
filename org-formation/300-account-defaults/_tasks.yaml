@@ -10,7 +10,6 @@ Mappings:
 Ec2EbsEncryptionDefaults:
   Type: update-stacks
   Template: https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/EC2/ec2-ebs-encryption.yaml
-  DependsOn: CommunityEc2EbsEncryptionDefaultsRP
   StackName: account-default-ec2-ebs-encryption
   MaxConcurrentStacks: 10
   DefaultOrganizationBinding:
@@ -21,7 +20,6 @@ Ec2EbsEncryptionDefaults:
 Ec2NoVpcDefaults:
   Type: update-stacks
   Template: https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/VPC/ec2-no-default-vpc.yaml
-  DependsOn: CommunityEc2NoDefaultVpcRP
   StackName: ec2-no-default-vpc
   MaxConcurrentStacks: 10
   DefaultOrganizationBinding:
