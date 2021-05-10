@@ -10,11 +10,9 @@ Organization:
       AccountId: '928879890086'
       RootEmail: aws.testitorgmgnt@sagebase.org
       Tags:
-        Department: Platform
-        Project: Infrastructure
+        <<: !Include ./_default_org_tags.yaml
         budget-alarm-threshold: '100'
         account-owner-email: aws.testitorgmgnt@sagebase.org
-        budget-alarm-threshold-email-recipient: it@sagebase.org
 
   OrganizationRoot:
     Type: OC::ORG::OrganizationRoot
@@ -42,11 +40,9 @@ Organization:
       AccountName: org-sagebase-testitorgmgnt-memberx
       RootEmail: aws.testitorgmgnt.memberx@sagebase.org
       Tags:
-        Department: Platform
-        Project: Infrastructure
+        <<: !Include ./_default_org_tags.yaml
         budget-alarm-threshold: '40'
         account-owner-email: aws.testitorgmgnt.memberx@sagebase.org
-        budget-alarm-threshold-email-recipient: it@sagebase.org
 
   MemberYAccount:
     Type: OC::ORG::Account
@@ -55,8 +51,6 @@ Organization:
       AccountName: org-sagebase-testitorgmgnt-membery
       RootEmail: aws.testitorgmgnt.membery@sagebase.org
       Tags:
-        Department: Platform
-        Project: Infrastructure
+        <<: !Include ./_default_org_tags.yaml
         budget-alarm-threshold: '40'
         account-owner-email: aws.testitorgmgnt.membery@sagebase.org
-        budget-alarm-threshold-email-recipient: it@sagebase.org
