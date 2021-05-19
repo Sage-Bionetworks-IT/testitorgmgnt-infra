@@ -1,12 +1,6 @@
 Parameters:
   <<: !Include '../_parameters.yaml'
 
-Mappings:
-  VcpSettings:
-    VpcSubnetPrefix:
-      320171649655: "10.201.30"
-      346742127440: "10.201.31"
-
 Ec2EbsEncryptionDefaults:
   Type: update-stacks
   Template: https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/EC2/ec2-ebs-encryption.yaml
@@ -62,34 +56,4 @@ ItKmsKey:
   DefaultOrganizationBinding:
     IncludeMasterAccount: true
     Account: '*'
-    Region: !Ref primaryRegion
-
-ScWorkbenchKmsKey:
-  Type: update-stacks
-  Template: https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/KMS/kms-key.yaml
-  StackName: scworkbench-kms-key
-  MaxConcurrentStacks: 10
-  Parameters:
-    AliasName: alias/scworkbench
-    AdminPrincipalArns:
-      - !Sub 'arn:aws:iam::${AWS::AccountId}:root'
-      - !Sub 'arn:aws:iam::${AWS::AccountId}:role/OrganizationFormationBuildAccessRole'
-    UserPrincipalArns:
-      - !Sub 'arn:aws:iam::${AWS::AccountId}:role/OrganizationFormationBuildAccessRole'
-  DefaultOrganizationBinding:
-    IncludeMasterAccount: true
-    Account: '*'
-    Region: !Ref primaryRegion
-
-ScWorkbenchSwDeVpc:
-  Type: update-stacks
-  Template: https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/VPC/vpc-mini.yaml
-  StackName: ScWorkbenchSwDeVpc
-  Parameters:
-    VpcSubnetPrefix: !FindInMap [VcpSettings, VpcSubnetPrefix, !Ref CurrentAccount]
-    VpcName: swdevvpc
-  MaxConcurrentStacks: 10
-  DefaultOrganizationBinding:
-    IncludeMasterAccount: false
-    Account: [!Ref MemberXAccount, !Ref MemberYAccount]
     Region: !Ref primaryRegion
