@@ -1,26 +1,16 @@
 name: aws-deploy
 
 on:
-  pull_request:
-    branches: '*'
   push:
     branches: [master]
 
 jobs:
-  pre-commit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-      - uses: pre-commit/action@v2.0.0
   org-formation:
-    if: github.event_name == 'push'
-    needs: pre-commit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Assume AWS Role
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.CI_SERVICE_USER_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.CI_SERVICE_USER_SECRET_ACCESS_KEY }}
@@ -28,11 +18,11 @@ jobs:
           role-to-assume: arn:aws:iam::928879890086:role/bootstrap-ci-service-access-CiServiceRole-ZUKNUGHX2CNB
           role-duration-seconds: 1200
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 15.x
+          node-version: 18
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
@@ -50,17 +40,15 @@ jobs:
       - name: Deploy with ofn
         run: npm run ci-perform-tasks
   sceptre-MemberX:
-    if: github.event_name == 'push'
-    needs: org-formation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v1
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.8
+          python-version: 3.12
       - name: Cache python modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
@@ -71,7 +59,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install sceptre
       - name: Assume AWS Role
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.CI_SERVICE_USER_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.CI_SERVICE_USER_SECRET_ACCESS_KEY }}
@@ -83,17 +71,15 @@ jobs:
           cd sceptre/MemberX
           sceptre launch prod --yes
   sceptre-MemberY:
-    if: github.event_name == 'push'
-    needs: org-formation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v1
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.8
+          python-version: 3.12
       - name: Cache python modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
@@ -104,7 +90,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install sceptre
       - name: Assume AWS Role
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.CI_SERVICE_USER_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.CI_SERVICE_USER_SECRET_ACCESS_KEY }}
